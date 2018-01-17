@@ -1,0 +1,235 @@
+{
+  "extra": 49615368,
+  "replayFrames": [
+    {
+      "buttonState": 0,
+      "bt": 0,
+      "mouseX": 147.556884765625,
+      "mouseY": 143.2075653076172,
+      "time": 9124
+    },
+    {
+      "buttonState": 0,
+      "bt": 0,
+      "mouseX": 161.64439392089844,
+      "mouseY": 122.0763168334961,
+      "time": 9140
+    },
+    {
+      "buttonState": 0,
+      "bt": 0,
+      "mouseX": 165.66940307617188,
+      "mouseY": 113.02007293701172,
+      "time": 9154
+    },
+    {
+      "buttonState": 0,
+      "bt": 0,
+      "mouseX": 171.70687866210938,
+      "mouseY": 91.88880920410156,
+      "time": 9172
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 173.7193603515625,
+      "mouseY": 78.80755615234375,
+      "time": 9193
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 175.73184204101562,
+      "mouseY": 66.73255157470703,
+      "time": 9208
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 177.74432373046875,
+      "mouseY": 56.670047760009766,
+      "time": 9226
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 179.75682067871094,
+      "mouseY": 50.632545471191406,
+      "time": 9239
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 183.78182983398438,
+      "mouseY": 46.6075439453125,
+      "time": 9254
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 189.81930541992188,
+      "mouseY": 44.59504318237305,
+      "time": 9271
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 196.86305236816406,
+      "mouseY": 42.582542419433594,
+      "time": 9290
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 208.9380340576172,
+      "mouseY": 40.57004165649414,
+      "time": 9304
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 225.03802490234375,
+      "mouseY": 39.56379318237305,
+      "time": 9321
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 251.20053100585938,
+      "mouseY": 38.55754089355469,
+      "time": 9345
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 264.2817687988281,
+      "mouseY": 38.55754089355469,
+      "time": 9357
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 274.3442687988281,
+      "mouseY": 38.55754089355469,
+      "time": 9375
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 284.40673828125,
+      "mouseY": 38.55754089355469,
+      "time": 9390
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 294.46923828125,
+      "mouseY": 38.55754089355469,
+      "time": 9407
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 304.5317077636719,
+      "mouseY": 39.56379318237305,
+      "time": 9424
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 314.5942077636719,
+      "mouseY": 41.5762939453125,
+      "time": 9440
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 330.6941833496094,
+      "mouseY": 47.61379623413086,
+      "time": 9460
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 338.74420166015625,
+      "mouseY": 54.65754699707031,
+      "time": 9477
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 346.794189453125,
+      "mouseY": 62.707550048828125,
+      "time": 9496
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 352.83172607421875,
+      "mouseY": 71.76380157470703,
+      "time": 9510
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 356.856689453125,
+      "mouseY": 82.83256530761719,
+      "time": 9529
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 358.8691711425781,
+      "mouseY": 88.87006378173828,
+      "time": 9539
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 366.9191589355469,
+      "mouseY": 114.02631378173828,
+      "time": 9556
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 368.931640625,
+      "mouseY": 124.08881378173828,
+      "time": 9564
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 370.9441223144531,
+      "mouseY": 136.163818359375,
+      "time": 9570
+    },
+    {
+      "buttonState": 10,
+      "bt": 0,
+      "mouseX": 375.975341796875,
+      "mouseY": 156.28880310058594,
+      "time": 9588
+    }
+  ],
+  "action": 0,
+  "scoreFrame": {
+    "time": 9588,
+    "id": 0,
+    "count300": 10,
+    "count100": 0,
+    "count50": 0,
+    "countGeki": 2,
+    "countKatu": 0,
+    "countMiss": 0,
+    "totalScore": 9604,
+    "maxCombo": 17,
+    "currentCombo": 17,
+    "perfect": false,
+    "currentHp": 198,
+    "tagByte": 0,
+    "usingScoreV2": false,
+    "comboPortion": 0,
+    "bonusPortion": 0
+  }
+}

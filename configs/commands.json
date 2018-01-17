@@ -1,0 +1,20 @@
+[
+    {
+        "Command": "!alert",
+        "Description": "use <!alert (Message)>",
+        "function": "alert",
+        "Privilege": 65536
+    },
+    {
+        "Command": "!kick",
+        "Description": "use <!kick (UserName)>",
+        "function": "kick",
+        "Privilege": 65536
+    },
+    {
+        "Command": "!math",
+        "Description": "use <!math (arguments such as 1+1 - 2)>",
+        "function": "math",
+        "Privilege": 0
+    }
+]
