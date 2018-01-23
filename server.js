@@ -27,7 +27,7 @@ setTimeout(() => {
 }, 5000);
 
 // Start TimeoutCheck ONLY CALL IT ONCE!!!
-Token.StartTimeoutCheck(100);
+Token.StartTimeoutCheck(1000);
 
 // Add our Bot!
 let botToken = Token.addToken([100, config.Bancho.BotName, false, 524284, false, 24, 0, 6, 0, 0]);
@@ -81,13 +81,16 @@ http.createServer((req, res) => {
                     }
                     
                 } else {
-                    res.writeHead(403,{
+                    res.writeHead(200,{
                         'cho-protocol': config.server.choprotocolversion,
                         'Connection': 'keep-alive',
                         'Keep-Alive': 'timeout=5, max=100',
                         'Content-Type': 'text/html; charset=UTF-8'
                     });
-                    res.end();
+                    const writer = new OsuPacket.Bancho.Writer();
+                    writer.Announce("Error: Token not found.");
+                    writer.LoginReply(-5)
+                    res.end(writer.toBuffer);
                 }
             }
         });

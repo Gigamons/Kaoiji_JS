@@ -11,6 +11,12 @@ function statusupdate(token, data){
         const TokenStatus = Token.Tokens[TokenID].status;
         const TokenStatusBeatmap = Token.Tokens[TokenID].status.beatmap;
         try {
+            TokenStatus.status = data.status;
+            
+            TokenStatusBeatmap.beatmapChecksum = data.beatmapChecksum;
+            TokenStatusBeatmap.currentMods = data.currentMods;
+            TokenStatusBeatmap.playMode = data.playMode;
+            TokenStatusBeatmap.beatmapId = data.beatmapId;
             if(Boolean(data.currentMods & 128 || data.currentMods & 8192)){
                 TokenStatus.statusText = 'With RX '+data.statusText;
                 Token.Tokens[TokenID].relaxing = true;
@@ -22,27 +28,18 @@ function statusupdate(token, data){
                 }
             } else {
                 Token.Tokens[TokenID].relaxing = false;
+                TokenStatus.statusText = data.statusText;
                 if(Token.Tokens[TokenID].relaxAnnounced){
                     Token.Tokens[TokenID].relaxAnnounced = false;
                     writer.Announce('You disabled RX Scoreboard! Enable RX or AP to enable RX Scoreboard!');
-                    Token.BroadcastToToken(token, writer.toBuffer);
                     updatestatistics(token, 0, true, false);
                     userpresence(token, 0, false);
                 }
-                TokenStatus.statusText = data.statusText;
             }
-            TokenStatus.status = data.status;
-            
-            TokenStatusBeatmap.beatmapChecksum = data.beatmapChecksum;
-            TokenStatusBeatmap.currentMods = data.currentMods;
-            if(data.playMode != TokenStatusBeatmap.playMode){
-                setTimeout(() => {
-                    updatestatistics(token, 0, true);
-                    userpresence(token, 0, false);
-                }, 100);
-            }
-            TokenStatusBeatmap.playMode = data.playMode;
-            TokenStatusBeatmap.beatmapId = data.beatmapId;
+            setTimeout(() => {
+                updatestatistics(token, 0, true);
+                userpresence(token, 0, false);
+            }, 100);
             Token.BroadcastToToken(token, writer.toBuffer);
         } catch (ex){
             console.error(ex);

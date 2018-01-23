@@ -89,6 +89,7 @@ async function removeToken(token = null, userid = 0){
                     userId: e.general.UserID,
                     state: 0
                 });
+                require('./PacketStreams').removeUserFromStream('main', token);
                 require('./PacketStreams').BroadcastToStream('main', writer.toBuffer);
                 Tokens.splice(i, 1);
             }    
@@ -101,6 +102,13 @@ async function removeToken(token = null, userid = 0){
                 .catch( (ex) => {
                     console.log(ex);
                 });
+                const writer = new OsuPacket.Bancho.Writer;
+                writer.HandleUserQuit({
+                    userId: e.general.UserID,
+                    state: 0
+                });
+                require('./PacketStreams').removeUserFromStream('main', e.token);
+                require('./PacketStreams').BroadcastToStream('main', writer.toBuffer);
                 Tokens.splice(i, 1);
             }
         }

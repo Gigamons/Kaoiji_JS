@@ -80,7 +80,7 @@ const login = async (res, req, packet) => {
             let latitude = 0;
 
             try {
-                let i = req.header('X-Real-IP');
+                let i = req.headers['X-Real-IP'];
                 if(i == "127.0.0.1" || i == '0.0.0.0')
                     i = '';
                 let IP = Object(await IPHelper(i));
@@ -88,7 +88,7 @@ const login = async (res, req, packet) => {
                 longitude = Number(IP.lon);
                 latitude = Number(IP.lat);
             } catch (ex) {
-                // console.log(ex);
+                console.log(ex);
                 countryId = Number(0);
                 longitude = Number(0);
                 latitude = Number(0);

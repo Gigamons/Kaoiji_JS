@@ -68,9 +68,7 @@ function sendMessageToChannel(token, message = '', channel = '') {
                     target: channel,
                     senderId: User[1].general.UserID
                 });
-                w.SpectatorJoined(100);
-                w.FellowSpectatorJoined(100);
-                PacketStream.BroadcastToStream('main', w.toBuffer);
+                PacketStream.BroadcastToStream('main', w.toBuffer, token = token);
             } 
         }
     } catch(ex){

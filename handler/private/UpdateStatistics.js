@@ -22,7 +22,6 @@ async function updatestats(token, userid, forced = false){
             let TokenBeatmap = Tokens[TokenID].status.beatmap;
             let gamemode = 'std';
             let gamemodeid = TokenBeatmap.playMode;
-            console.log(gamemodeid)
             if(gamemodeid == 0)
                 gamemode = 'std';
             else if (gamemodeid == 1)
@@ -33,7 +32,6 @@ async function updatestats(token, userid, forced = false){
                 gamemode = 'mania';
             else gamemode = 'std';
 
-            console.log(gamemode);
             userid = TokenData.general.UserID;
             if(Tokens[TokenID].relaxing){
                 let LeaderBoard = await UserTools.getLeaderBoard(userid, gamemodeid, true);

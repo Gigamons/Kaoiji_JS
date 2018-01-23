@@ -49,7 +49,6 @@ async function handlePackets (token, RawPacket) {
                 require('../objects/spectatorStream').leaveStream(token, Packet.data)
                 break;
             case 18:
-                
                 const StreamID = require('../objects/spectatorStream').getStreamByToken(token)[0];
                 require('../objects/spectatorStream').broadcastFrame(StreamID, Packet.data);
                 break;
@@ -58,7 +57,6 @@ async function handlePackets (token, RawPacket) {
                 writer.resetbuffer();
                 writer.Announce('Multiplayer is not ready.');
                 writer.ChannelRevoked('#lobby');
-                writer.Unauthorised();
                 Token.BroadcastToToken(token, writer.toBuffer);
                 break;
             case 63:
