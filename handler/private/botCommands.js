@@ -110,7 +110,7 @@ async function ban(args = [], channel, description = 'Haitai') {
 
   const UserID = await UserTools.getuserid(toBanUser);
 
-  await MySQL.query("UPDATE users SET banned = 1 WHERE id = ?", userid)
+  await MySQL.query("UPDATE users SET banned = 1 WHERE id = ?", UserID)
   EventTools.WriteKick(UserID, null);
 }
 
@@ -119,7 +119,8 @@ async function setPerm(args = [], channel, description = 'Haitai') {
   const toRankUser = args[0];
   const Permission = args[1];
 
-  if(toRankUser === null || toRankUser === undefined || toRankUser === '' || toBanUser.startsWith(' ')) {
+
+  if(toRankUser === null || toRankUser === undefined || toRankUser === '' || toRankUser.startsWith(' ')) {
       writer.SendMessage({
           sendingClient: config.Bancho.BotName,
           message: description,
