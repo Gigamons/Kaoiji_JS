@@ -121,7 +121,6 @@ const login = async (res, req, packet) => {
             });
             BufferArray = Buffer.concat([writer.toBuffer, Token.getDatabyUserToken(responseToken)[1].output.read()])
             res.write(BufferArray);
-            Token.clearoutput(responseToken);
             res.end();
         } catch (ex) {
             switch (ex) {
