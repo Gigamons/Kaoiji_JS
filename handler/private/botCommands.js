@@ -110,7 +110,7 @@ async function ban(args = [], channel, description = 'Haitai') {
 
   const UserID = await UserTools.getuserid(toBanUser);
 
-  await MySQL.query("UPDATE users SET banned = 1 WHERE id = ?", UserID)
+  await MySQL.query("UPDATE users SET banned = 1 WHERE id = ?", [UserID])
   EventTools.WriteKick(UserID, null);
 }
 
@@ -182,7 +182,7 @@ async function setPerm(args = [], channel, description = 'Haitai') {
   }
   const UserID = await UserTools.getuserid(toRankUser);
 
-  await MySQL.query("UPDATE users SET privileges = ? WHERE id = ?", perm, UserID)
+  await MySQL.query("UPDATE users SET privileges = ? WHERE id = ?"[perm, UserID])
 }
 
 module.exports = {
