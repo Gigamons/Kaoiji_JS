@@ -49,6 +49,12 @@ function commandFunction(token, channel = '#osu', from = '', command = '!faq', a
                 case 'math':
                     commandFunctions.math(args, channel, cmd.Description)
                     break;
+                case 'setPerm':
+                    commandFunctions.setPerm(args, channel, cmd.Description)
+                    break;
+                case 'ban':
+                    commandFunctions.ban(args, channel, cmd.Description)
+                    break;
                 default:
                     break;
             }

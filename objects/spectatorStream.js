@@ -43,7 +43,7 @@ function deleteStream(token){
                 PacketStream.removeStream('spec_'+Streams[i].StreamHostID);
                 Streams.splice(i, 1);
             }
-        } 
+        }
         catch (ex){ }
     }
 }
@@ -79,7 +79,7 @@ function getStreamBySpectatorToken(token){
 function joinStream(token, StreamHostID){
     const user = Token.getDatabyUserToken(token);
     const Stream = getStreamByID(StreamHostID);
-    
+
     if(Stream){
         if(user){
             const StreamID = Stream[0];
@@ -103,14 +103,15 @@ function joinStream(token, StreamHostID){
     }
 }
 
-function cantSpec(t){
+function cantSpec(token){
     const writer = new OsuPacket.Bancho.Writer();
 
-    const user = Token.getDatabyUserToken(t)[1];
-    const Stream = getStreamBySpectatorToken(t);
+    const user = Token.getDatabyUserToken(token)[1];
+    const Stream = getStreamBySpectatorToken(token);
     const StreamID = Stream[0];
-    
-    writer.SpectatorCantSpectate(user.UserID);
+
+    // Fixed after a week.
+    writer.SpectatorCantSpectate(user.general.UserID);
 
     broadCastToEveryone(StreamID, writer.toBuffer)
 }
@@ -193,27 +194,27 @@ function broadcastReplay(StreamID) {
 function broadcastFrame(StreamID, Packet){
     const writer = new OsuPacket.Bancho.Writer();
     const stream = Streams[StreamID];
-    
+
     for (let i = 0; i < Packet.replayFrames.length; i++) {
         const frame = Packet.replayFrames[i];
         stream.replay += `${frame.time}|${frame.mouseX}|${frame.mouseY}|${frame.buttonState},`
     }
     if(Packet.action == 2 || Packet.action == 3){
-        const mysql = require('../common/manager/mysql');
-        const archivedrank = require('../common/helpers/getRank')
-        const cryptohelper = require('../common/helpers/Crypto');
-        stream.replay += "-12345|0|0|1337"
-        let acc = calcacc(Packet.scoreFrame.count300, Packet.scoreFrame.count100, Packet.scoreFrame.count50, Packet.scoreFrame.countMiss, Packet.scoreFrame.countKatu, Packet.scoreFrame.countGeki, stream.playmode);
-        let replayHash = cryptohelper.md5String(Packet.scoreFrame.maxCombo+"osu"+"SpecPlay"+stream.beatmapchecksum+Packet.scoreFrame.totalScore+archivedrank(stream.playmode, stream.mods, acc, Packet.scoreFrame.count300, Packet.scoreFrame.count50, Packet.scoreFrame.count50, Packet.scoreFrame.countMiss));
-        let replayinfo = stream.beatmapchecksum+"|"+Packet.scoreFrame.count300 +"|"+ Packet.scoreFrame.count100 +"|"+ Packet.scoreFrame.count50 +"|"+ Packet.scoreFrame.countMiss +"|"+ Packet.scoreFrame.countKatu +"|"+ Packet.scoreFrame.countGeki +"|"+acc+"|"+"SpecPlay"+"|"+Packet.scoreFrame.totalScore+"|"+Packet.scoreFrame.maxCombo+"|"+stream.mods
-        mysql.query("INSERT INTO scores_replay (replay_hash, replay_string, replay_type, replay_info), (?,?,?,?)", [replayHash, stream.replay, 1, replayinfo]);
-        stream.replay = "";
-        writer.SendMessage({
-            sendingClient: require('../config').Bancho.BotName,
-            message: "SpecPlay saved UnderID: "+replayHash,
-            target: "#spectator",
-            senderId: 100
-        });
+        // const mysql = require('../common/manager/mysql');
+        // const archivedrank = require('../common/helpers/getRank')
+        // const cryptohelper = require('../common/helpers/Crypto');
+        // stream.replay += "-12345|0|0|1337"
+        // let acc = calcacc(Packet.scoreFrame.count300, Packet.scoreFrame.count100, Packet.scoreFrame.count50, Packet.scoreFrame.countMiss, Packet.scoreFrame.countKatu, Packet.scoreFrame.countGeki, stream.playmode);
+        // let replayHash = cryptohelper.md5String(Packet.scoreFrame.maxCombo+"osu"+"SpecPlay"+stream.beatmapchecksum+Packet.scoreFrame.totalScore+archivedrank(stream.playmode, stream.mods, acc, Packet.scoreFrame.count300, Packet.scoreFrame.count50, Packet.scoreFrame.count50, Packet.scoreFrame.countMiss));
+        // let replayinfo = stream.beatmapchecksum+"|"+Packet.scoreFrame.count300 +"|"+ Packet.scoreFrame.count100 +"|"+ Packet.scoreFrame.count50 +"|"+ Packet.scoreFrame.countMiss +"|"+ Packet.scoreFrame.countKatu +"|"+ Packet.scoreFrame.countGeki +"|"+acc+"|"+"SpecPlay"+"|"+Packet.scoreFrame.totalScore+"|"+Packet.scoreFrame.maxCombo+"|"+stream.mods
+        // mysql.query("INSERT INTO scores_replay (replay_hash, replay_string, replay_type, replay_info), (?,?,?,?)", [replayHash, stream.replay, 1, replayinfo]);
+        // stream.replay = "";
+        // writer.SendMessage({
+        //     sendingClient: require('../config').Bancho.BotName,
+        //     message: "SpecPlay saved UnderID: "+replayHash,
+        //     target: "#spectator",
+        //     senderId: 100
+        // });
     } else {
         let hostToken = stream.StreamToken;
         console.log(hostToken)

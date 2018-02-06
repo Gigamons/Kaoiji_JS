@@ -92,7 +92,7 @@ async function removeToken(token = null, userid = 0){
                 require('./PacketStreams').removeUserFromStream('main', token);
                 require('./PacketStreams').BroadcastToStream('main', writer.toBuffer);
                 Tokens.splice(i, 1);
-            }    
+            }
         }
     } else {
         for (let i = 0; i < Tokens.length; i++) {
@@ -152,8 +152,6 @@ function BroadcastToToken(token, b = new Buffer('')){
     for (let i = 0; i < Tokens.length; i++) {
         if(Tokens[i].token === token){
             if(Tokens[i].general.UserID == 100) return;
-            // let newBuffer = Buffer.concat([Tokens[i].output, b]);
-            // Tokens[i].output = newBuffer;
             Tokens[i].output.push(b);
         }
     }
@@ -163,19 +161,8 @@ async function BroadcastToUserID(UserID, b = new Buffer('')){
     if(UserID == 100) return;
     for (let i = 0; i < Tokens.length; i++) {
         if(Tokens[i].general.UserID === UserID){
-            // let newBuffer = Buffer.concat([Tokens[i].output, b]);
-            // Tokens[i].output = newBuffer;
-            
             Tokens[i].output.push(b)
         }
-    }
-}
-
-
-function clearoutput(token) {
-    const data = getDatabyUserToken(token);
-    if(data){
-        //Tokens[data[0]].output.push(null);
     }
 }
 
