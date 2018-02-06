@@ -182,7 +182,7 @@ async function setPerm(args = [], channel, description = 'Haitai') {
   }
   const UserID = await UserTools.getuserid(toRankUser);
 
-  await MySQL.query("UPDATE users SET privileges = ? WHERE id = ?"[perm, UserID])
+  await MySQL.query("UPDATE users SET privileges = ? WHERE id = ?", [perm, UserID])
 }
 
 module.exports = {
