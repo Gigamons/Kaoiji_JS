@@ -66,12 +66,12 @@ const login = async (res, req, packet) => {
                 r |= 32;
             }
             if(common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminDeveloper)){
-                perm |= 8;
-            }
-            if(common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminChatMod)){
                 perm |= 6;
             }
-            if(common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminBanUsers)){
+            if(common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminChatMod)){
+                perm |= 8;
+            }
+            if(common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.TournamentStaff)){
                 perm |= 16;
             }
 
