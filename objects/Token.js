@@ -224,6 +224,5 @@ module.exports = {
     StartTimeoutCheck,
     genToken,
     BroadcastToToken,
-    BroadcastToUserID,
-    clearoutput
+    BroadcastToUserID
 }
