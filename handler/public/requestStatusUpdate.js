@@ -12,9 +12,12 @@ function requestStatusUpdate(token, userid = 0, toToken = '', bot = false){
     } else {
         user = Token.getDatabyUserToken(token);
     }
+    if(bot){
+        return;
+    }
     if(user){
-        const TokenData = user[1];
-        const TokenStatus = user[1].status;
+        const TokenData = user;
+        const TokenStatus = user.status;
         const TokenStatusBeatmap = TokenStatus.beatmap;
         
         let obj;
@@ -34,30 +37,6 @@ function requestStatusUpdate(token, userid = 0, toToken = '', bot = false){
             rank: TokenStatus.rank, 
             performance: TokenStatus.performance
         };
-        if(bot){
-            let botPresenceRawJson = fs.readFileSync(path.join(__dirname + '/../../configs/botPresence.json')).toString();
-            let botPresence = JSON.parse(botPresenceRawJson);
-            if(botPresence.accuracy == "{tokenaccuracy}") botPresence.accuracy = TokenStatus.accuracy;
-            else botPresence.accuracy = botPresence.accuracy / 100
-            if(botPresence.playCount == "{tokenplaycount}") botPresence.accuracy = TokenStatus.playCount;
-            if(botPresence.rank == "{tokenrank}") botPresence.accuracy = TokenStatus.rank;
-            if(botPresence.performance == "{tokenpp}") botPresence.accuracy = TokenStatus.performance;
-            obj = {
-                userId: 100,
-                status: botPresence.StatusCode,
-                statusText: botPresence.StatusText,
-                beatmapChecksum: botPresence.beatmapChecksum,
-                currentMods: botPresence.currentMods,
-                playMode: botPresence.playMode,
-                beatmapId: botPresence.beatmapId,
-                rankedScore: botPresence.rankedScore,
-                accuracy: botPresence.accuracy,
-                playCount: botPresence.playCount,
-                totalScore: botPresence.totalScore,
-                rank: botPresence.rank,
-                performance: botPresence.performance
-            };
-        }
         writer.HandleOsuUpdate(obj);
         if(toToken.length > 0)
             Token.BroadcastToToken(toToken, writer.toBuffer);

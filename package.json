@@ -1,0 +1,20 @@
+{
+  "name": "Kaoiji",
+  "version": "1.0.0",
+  "main": "kaoiji.js",
+  "repository": "https://git.xii.nz/Bananacho/Kaoiji_js.git",
+  "author": "Mempler",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt-nodejs": "^0.0.3",
+    "bluebird": "^3.5.1",
+    "colors": "^1.1.2",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "node-php-password": "^0.1.2",
+    "redis": "^2.8.0",
+    "request": "^2.83.0",
+    "sleep-promise": "^2.0.0",
+    "urlsafe-base64": "^1.0.0"
+  }
+}

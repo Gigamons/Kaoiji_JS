@@ -7,9 +7,8 @@ function statusupdate(token, data){
     const user = Token.getDatabyUserToken(token);
     const writer = new OsuPacket.Bancho.Writer;
     if(user){
-        const TokenID = user[0];
-        const TokenStatus = Token.Tokens[TokenID].status;
-        const TokenStatusBeatmap = Token.Tokens[TokenID].status.beatmap;
+        let TokenStatus = user.status;
+        let TokenStatusBeatmap = user.status.beatmap;
         try {
             TokenStatus.status = data.status;
             
@@ -19,18 +18,18 @@ function statusupdate(token, data){
             TokenStatusBeatmap.beatmapId = data.beatmapId;
             if(Boolean(data.currentMods & 128 || data.currentMods & 8192)){
                 TokenStatus.statusText = 'With RX '+data.statusText;
-                Token.Tokens[TokenID].relaxing = true;
-                if(!Token.Tokens[TokenID].relaxAnnounced){
-                    Token.Tokens[TokenID].relaxAnnounced = true;
+                user.relaxing = true;
+                if(!user.relaxAnnounced){
+                    user.relaxAnnounced = true;
                     writer.Announce('You enabled RX Scoreboard! Disable RX or AP to disable RX Scoreboard!');
                     updatestatistics(token, 0, true, true);
                     userpresence(token, 0, false);
                 }
             } else {
-                Token.Tokens[TokenID].relaxing = false;
+                user.relaxing = false;
                 TokenStatus.statusText = data.statusText;
-                if(Token.Tokens[TokenID].relaxAnnounced){
-                    Token.Tokens[TokenID].relaxAnnounced = false;
+                if(user.relaxAnnounced){
+                    user.relaxAnnounced = false;
                     writer.Announce('You disabled RX Scoreboard! Enable RX or AP to enable RX Scoreboard!');
                     updatestatistics(token, 0, true, false);
                     userpresence(token, 0, false);

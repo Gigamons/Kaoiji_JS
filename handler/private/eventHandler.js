@@ -94,8 +94,8 @@ async function handleEvent(Event, Obj = {}, row) {
         case 'updateStats':
             let tokenobject = Token.getDatabyUserID(updateStatsOBJECT.UserID);
             try {
-                await require('./UpdateStatistics')(tokenobject[1].token, updateStatsOBJECT.UserID, updateStatsOBJECT.Forced, tokenobject[1].relaxing);
-                require('../public/requestStatusUpdate')(tokenobject[1].token, updateStatsOBJECT.UserID, tokenobject[1].token)
+                await require('./UpdateStatistics')(tokenobject.token, updateStatsOBJECT.UserID, updateStatsOBJECT.Forced, tokenobject.relaxing);
+                require('../public/requestStatusUpdate')(tokenobject.token, updateStatsOBJECT.UserID, tokenobject.token)
                 return true;
             }catch(ex){
                 // Mostly if user isn't online

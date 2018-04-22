@@ -5,7 +5,6 @@ const presence = require('./UserPresence');
 
 function getusers(token, f=false){
     const writer = new OsuPacket.Bancho.Writer();
-    const TokenData = Token.getDatabyUserToken(token)[1];
 
     let UserIDs = [];
     let output = new Buffer('');

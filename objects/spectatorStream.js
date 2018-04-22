@@ -84,20 +84,20 @@ function joinStream(token, StreamHostID){
         if(user){
             const StreamID = Stream[0];
             const obj = {
-                UserID: user[1].general.UserID,
-                Token: user[1].token,
+                UserID: user.general.UserID,
+                Token: user.token,
             }
             Streams[StreamID].SpectatorList.push(obj);
 
             const w = new OsuPacket.Bancho.Writer();
-            w.SpectatorJoined(user[1].general.UserID);
+            w.SpectatorJoined(user.general.UserID);
             Token.BroadcastToUserID(StreamHostID, w.toBuffer)
 
             const writer = new OsuPacket.Bancho.Writer();
-            writer.FellowSpectatorJoined(user[1].general.UserID);
+            writer.FellowSpectatorJoined(user.general.UserID);
             writer.ChannelJoinSuccess('#spectator');
 
-            PacketStream.addUsertoStream('spec_'+Streams[StreamID].StreamHostID, user[1])
+            PacketStream.addUsertoStream('spec_'+Streams[StreamID].StreamHostID, user)
             broadCastToEveryone(StreamID, writer.toBuffer);
         }
     }
@@ -125,14 +125,14 @@ function leaveStream(t){
         const StreamHostID = Stream[2].StreamHostID;
         Streams[StreamID].SpectatorList.splice(SpectatorID, 1);
 
-        console.log(user[1].general.UserName + " Stopped Spectating.");
+        console.log(user.general.UserName + " Stopped Spectating.");
 
         const w = new OsuPacket.Bancho.Writer();
-        w.SpectatorLeft(user[1].general.UserID);
+        w.SpectatorLeft(user.general.UserID);
         Token.BroadcastToUserID(StreamHostID, w.toBuffer);
 
         const writer = new OsuPacket.Bancho.Writer();
-        writer.FellowSpectatorLeft(user[1].general.UserID);
+        writer.FellowSpectatorLeft(user.general.UserID);
         broadCastToEveryone(StreamID, writer.toBuffer);
     }
 }
@@ -142,7 +142,7 @@ function broadCastToEveryone(StreamID, buffer = new Buffer('')){
     if(stream){
         for(let i = 0, len = stream.SpectatorList.length; i < len; i++){
             const user = Token.getDatabyUserID(stream.SpectatorList[i].UserID);
-            const usertoken = user[1].token;
+            const usertoken = user.token;
             userstatusrequest('', stream.StreamHostID, usertoken, false)
         }
         PacketStream.BroadcastToStream('spec_'+stream.StreamHostID, buffer);

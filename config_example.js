@@ -6,13 +6,10 @@ module.exports = {
         debug: false
     },
     Bancho: {
-        ServerName: 'BananaCho',
-        BotName: 'BananaBot',
-        SupportEmail: 'support@bananacho.ml',
+        ServerName: 'Gigamons',
+        BotName: 'GigaBot',
+        SupportEmail: 'support@gigamons.de',
         freedirect: true
-    },
-    osu: {
-        apikey: ''
     },
     mysql: {
         pool: 128,
@@ -20,7 +17,7 @@ module.exports = {
         port: 3306,
         username: 'root',
         password: '',
-        database: 'bananacho'
+        database: 'gigamons'
     },
     redis: {
         host: '127.0.0.1',
