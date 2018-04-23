@@ -21,6 +21,7 @@ const Channel = require('../objects/Channel');
 const updatestats = require('./private/UpdateStatistics')
 const UserPresence = require('./public/UserPresence');
 const titleUpdate = require('./public/titleUpdate');
+const friendList = require('./public/friends').friendList;
 
 //const Permissions = consts.Permissions;
 
@@ -106,7 +107,7 @@ const login = async (res, req, packet) => {
 
       PacketStreams.addUsertoStream('main', u);
 
-      require('./private/UpdateStatistics')(responseToken, 0, Boolean(true))
+      require('./private/UpdateStatistics')(responseToken, 0, true)
       require('./public/UserPresenceBundle')(responseToken);
 
       if (!Token.getDatabyUserToken(responseToken)) throw 'Something goes horrible wrong!';
@@ -118,6 +119,7 @@ const login = async (res, req, packet) => {
         'Keep-Alive': 'timeout=5, max=100',
         'Content-Type': 'text/html; charset=UTF-8'
       });
+      await friendList(responseToken);
       BufferArray = Buffer.concat([writer.toBuffer, Token.getDatabyUserToken(responseToken).output.read()])
       res.write(BufferArray);
       res.end();

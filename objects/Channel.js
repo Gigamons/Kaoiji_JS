@@ -1,6 +1,7 @@
 const Token = require('../objects/Token');
 const OsuPacket = require('../main_modules/osu-packet');
 const common = require('../common');
+const config = require('../config')
 
 let channels = [];
 
@@ -98,12 +99,23 @@ function channelInfo(channel = '#osu') {
 function FirstChannelPacket(token) {
   const OsuPacket = require('../main_modules/osu-packet');
   const writer = new OsuPacket.Bancho.Writer;
+  channelListing(token);
+  writer.ChannelJoinSuccess('#' + config.Bancho.ServerName)
+  writer.ChannelRevoked('#osu');
+  //JoinChannel(token, '#osu');
+  JoinChannel(token, '#' + config.Bancho.ServerName);
+  JoinChannel(token, '#announce');
+  Token.BroadcastToToken(token, writer.toBuffer)
+}
+
+function channelListing(token) {
+  const OsuPacket = require('../main_modules/osu-packet');
+  const writer = new OsuPacket.Bancho.Writer;
   const UserPrivileges = Token.getDatabyUserToken(token).general.Privileges;
   writer.ChannelListingComplete();
   for (let i = 0; i < channels.length; i++) {
     const element = channels[i];
-    if(element.ChannelName.startsWith("#spec_")) continue;
-    if(element.ChannelName.startsWith("#mp_")) continue;
+    if(!element.ShowChannel) continue;
     if (element.AdminOnly && common.PrivilegeHelper.hasPrivilege(UserPrivileges, common.Privileges.BAT)) {
       writer.ChannelAvailable({
         channelName: element.ChannelName,
@@ -119,9 +131,6 @@ function FirstChannelPacket(token) {
     }
   }
   Token.BroadcastToToken(token, writer.toBuffer);
-  JoinChannel(token, '#osu');
-  JoinChannel(token, '#announce');
-  return writer.toBuffer;
 }
 /**
  * arr[0] = ChannelName
@@ -138,9 +147,10 @@ function createChannel(arr = []) {
 }
 
 function createDefault() {
-  createChannel(['#osu', 'Osu\'s Default channel.', true, false, false, false, false, 'main'])
-  createChannel(['#announce', 'Osu\'s Default channel.', true, false, true, false, false, 'main'])
-  createChannel(['#userlog', 'Osu\'s Default channel.', false, false, true, false, false, 'main'])
+  //createChannel(['#osu', 'Osu\'s Default channel.', true, false, false, false, false, 'main'])
+  createChannel(['#announce', 'Osu\'s Default Announce channel.', true, false, true, false, false, 'main'])
+  createChannel(['#userlog', 'Osu\'s Default trash channel.', false, false, true, false, false, 'main'])
+  createChannel(['#' + config.Bancho.ServerName, config.Bancho.ServerName + 'Just a channel to talk about smth.', true, false, false, false, false, 'main'])
 }
 
 function deleteChannel(channel = null) {

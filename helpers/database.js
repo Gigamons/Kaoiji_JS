@@ -70,6 +70,11 @@ const createDatabase = async () => {
   INSERT INTO \`users_status\` (\`id\`, \`country\`, \`lat\`, \`lon\`, \`banned\`, \`banned_until\`, \`banned_reason\`, \`silenced\`, \`silenced_until\`, \`silenced_reason\`) VALUES
   (1, 0, 0, 0, 0, '2018-04-22 17:25:00', '', 0, '2018-04-22 17:25:00', '');
 
+  CREATE TABLE \`friends\` (
+    \`userid\` int(11) NOT NULL,
+    \`friendid\` int(11) NOT NULL
+  ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
   ALTER TABLE \`leaderboard\`
   ADD PRIMARY KEY (\`id\`);
   ALTER TABLE \`users\`

@@ -69,6 +69,14 @@ async function handlePackets(token, RawPacket) {
         writer.BeatmapInfoReply();
         Token.BroadcastToToken(token, writer.toBuffer);
         break;
+      case 73:
+        // AddFriend
+        require('./public/friends').addFriend(token, Packet.data);
+        break;
+      case 74:
+        // RemoveFriend
+        require('./public/friends').removeFriend(token, Packet.data);
+        break;
       case 78:
         // Leave channel.
         require('../objects/Channel').LeaveChannel(token, Packet.data);
