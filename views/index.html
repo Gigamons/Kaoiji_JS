@@ -1,33 +1,60 @@
 <html>
-    <head>
-        <title>me gusta los niños</title>
-    </head>
+
+<head>
+    <title>Uchū e yōkoso</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
 <body>
-<pre>
-     __
-   / __ )____ _____  _____/ /_  ____
-  / __  / __ `/ __ \/ ___/ __ \/ __ \
- / /__/ / / // /_/ / /__/ / / / /_/ /
-/_____/\__,_/_/ /_/\___/_/ /_/\____/
-BananaCho v2
-<bold>Just stop.</bold>
+    <pre>
+ _   __            _ _ _ 
+| | / /           (_|_|_)
+| |/ /  __ _  ___  _ _ _ 
+|    \ / _` |/ _ \| | | |
+| |\  \ (_| | (_) | | | |
+\_| \_/\__,_|\___/|_| |_|
+                   _/ |  
+                  |__/
+<div><strike>Bananacho</strike> Gigamons <div class="bold">V2.1</div></div>
+<div>Users Online: <div id="usersonline" class="bold">0</div></div>
+<div>No crashes since: </div><div id="lastrestart">Day: 0 Hour: 0 Second: 0</div>
+<style>
 
-     .  o ..
-     o . o o.o
-          ...oo
-            __[]__
-         __|_o_o_o\__    <---- scouting for cheaters.
-         \""""""""""/
-          \. ..  . /
-     ^^^^^^^^^^^^^^^^^^^^
+</style>
+<script>
+    updateData();
+    setInterval( () => {
+        updateData();
+    }, 1000);
+    function updateData() {
+        $.get( "api/v1/status", function(data) {
+            const j = JSON.parse(data);
+            const lastrestart = Date.parse(j.lastrestart);
+            console.log(new Date().getTimezoneOffset());
+            const Diffrence = new Date(new Date().getTime() - lastrestart);
+            document.getElementById("usersonline").innerHTML = j.users;
+            document.getElementById("lastrestart").innerHTML = `Day: ${Math.floor(Diffrence.getTime() / 86400000) } Hour: ${Diffrence.getUTCHours()} Minute: ${Diffrence.getUTCMinutes()} Seconds: ${Diffrence.getUTCSeconds()}`;
+        });
+    }
+</script>
+<marquee style="white-space:pre;" direction="right" scrolldelay="60">
+              ______________
+             <--------------\
+             .>-------------<--------------.______________
+            /____________________                         `----.__
+          .'         /.----------.__       ======-----====>       `.
+        .'          //              `--._     ______________________`.
+      .'           //                    `.--'  -------------------------.
+ ,------------------------------------.==[=====]=========@==================
+|     (========\____________      [_=__)  `-.________________________.---'
+ \     \===========_________)   .--| |##)     `--.___           _.-'
+  \____________________________/---'-`-'             `---------'
+</marquee>
+frontend: <a href='https://gigamons.de'>https://gigamons.de</a>
+discord:  <a href='https://discord.gg/w9Xqdex'>https://discord.gg/e8ZC73u</a>
+source:   <a href='https://git.gigamons.de/Gigamons'>https://git.gigamons.de/Gigamons</a>
 
-
-frontend:    <a href='https://bananacho.pw'>https://bananacho.pw</a>
-discord: <a href='https://discord.gg/3BdZ8nE'>https://discord.gg/3BdZ8nE</a>
-source:   <a href='https://git.xii.nz/Bananacho/'>https://git.xii.nz/Bananacho/</a>
-
-
-<strike>stealing all your data</strike>
 </pre>
 </body>
+
 </html>

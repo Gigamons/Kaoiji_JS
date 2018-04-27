@@ -138,7 +138,7 @@ function StartTimeoutCheck() {
   setInterval(() => {
     Tokens.forEach((e, i, arr) => {
       const ms = new Date().getTime();
-      if (e.TimeoutTimer < ms - (30 * 60 * 60) && e.general.UserID != 1)
+      if (e.TimeoutTimer < ms - 30000 && e.general.UserID != 1)
         removeToken(e.token);
     });
   }, 5000);

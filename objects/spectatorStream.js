@@ -5,7 +5,6 @@ const OsuPacket = require('../main_modules/osu-packet');
 const Token = require('./Token');
 const Channel = require('./Channel');
 const PacketStream = require('./PacketStreams');
-const sleep = require('sleep-promise');
 const userstatusrequest = require('../handler/public/requestStatusUpdate');
 
 let Streams = [];
@@ -219,9 +218,9 @@ function broadcastFrame(StreamID, Packet){
         let hostToken = stream.StreamToken;
         console.log(hostToken)
         let Host = Token.getDatabyUserToken(hostToken);
-        stream.beatmapchecksum = Host[1].status.beatmap.beatmapChecksum
-        stream.playmode = Host[1].status.beatmap.playMode
-        stream.mods = Host[1].status.beatmap.currentMods
+        stream.beatmapchecksum = Host.status.beatmap.beatmapChecksum
+        stream.playmode = Host.status.beatmap.playMode
+        stream.mods = Host.status.beatmap.currentMods
     }
     writer.SpectateFrames(Packet);
     try {

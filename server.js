@@ -38,11 +38,13 @@ process.on('uncaughtException', function(err) {
   console.log('Caught exception: ' + err);
 });
 
-app.use((req, res) => {
-  //if (req.header('user-agent') != 'osu') {
-  //  render(res, 'views/index.html');
-  //  return;
-  //}
+app.use('/api/v1', require('./handler/private/api'));
+
+app.use('/', (req, res) => {
+  if (req.headers['user-agent'] != 'osu!') {
+    render(res, 'views/index.html');
+    return;
+  }
 
   const requestToken = req.header('osu-token');
 

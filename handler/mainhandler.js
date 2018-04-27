@@ -1,6 +1,5 @@
 const Token = require('../objects/Token');
 const Stream = require('../objects/PacketStreams');
-const sleep = require('sleep-promise');
 
 const OsuPacket = require('../main_modules/osu-packet');
 

@@ -271,7 +271,24 @@ class OsuBuffer {
      */
     WriteUInt(value, byteLength) {
         let buff = Buffer.alloc(byteLength);
-        buff.writeUIntLE(value, 0, byteLength);
+
+        switch (byteLength) {
+            case 1:
+                buff.writeUInt8(value, 0);
+                break;
+            case 2:
+                buff.writeUInt16LE(value, 0);
+                break;
+            case 4:
+                buff.writeUInt32LE(value, 0);
+                break;
+            case 8:
+                buff.writeUIntLE(value, 0, 6)
+                break;
+            default:
+                buff.writeUIntLE(value, 0, byteLength);
+                break;
+        }
 
         return this.WriteBuffer(buff);
     }
@@ -284,7 +301,23 @@ class OsuBuffer {
      */
     WriteInt(value, byteLength) {
         let buff = Buffer.alloc(byteLength);
-        buff.writeIntLE(value, 0, byteLength);
+        switch (byteLength) {
+            case 1:
+                buff.writeInt8(value, 0);
+                break;
+            case 2:
+                buff.writeInt16LE(value, 0);
+                break;
+            case 4:
+                buff.writeInt32LE(value, 0);
+                break;
+            case 8:
+                buff.writeIntLE(value, 0, 6)
+                break;
+            default:
+                buff.writeIntLE(value, 0, byteLength);
+                break;
+        }
 
         return this.WriteBuffer(buff);
     }
