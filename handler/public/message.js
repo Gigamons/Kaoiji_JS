@@ -20,8 +20,7 @@ async function sendMessageToUser(token, message = '', target = '') {
         target: User.general.UserName,
         senderId: User.general.UserID
     });
-    Token.BroadcastToUserID(OtherID)
-    
+    Token.BroadcastToUserID(OtherID, writer.toBuffer);
 }
 
 function sendMessageToChannel(token, message = '', channel = '') {
@@ -128,5 +127,6 @@ function sendMessageToChannel(token, message = '', channel = '') {
 }
 
 module.exports = {
-    sendMessageToChannel
+    sendMessageToChannel,
+    sendMessageToUser
 }

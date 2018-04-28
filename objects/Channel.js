@@ -32,6 +32,8 @@ function JoinChannel(token, channel = '#osu') {
         return writer.toBuffer;
       }
     } else {
+      if (channel == "" || channel == undefined ||  channel == null || channel == NaN)
+        channel = "#somechannelthatdoesentexists";
       writer.ChannelRevoked(channel);
       writer.CommandError();
       writer.Unauthorised();
@@ -122,7 +124,9 @@ function channelListing(token) {
         channelTopic: element.ChannelDescription,
         channelUserCount: 0
       });
-    } else if (element.AdminOnly && !common.PrivilegeHelper.hasPrivilege(UserPrivileges, common.Privileges.BAT)) {} else {
+    } else if (element.AdminOnly && !common.PrivilegeHelper.hasPrivilege(UserPrivileges, common.Privileges.BAT)) {
+
+    } else {
       writer.ChannelAvailable({
         channelName: element.ChannelName,
         channelTopic: element.ChannelDescription,
@@ -149,6 +153,7 @@ function createChannel(arr = []) {
 function createDefault() {
   //createChannel(['#osu', 'Osu\'s Default channel.', true, false, false, false, false, 'main'])
   createChannel(['#announce', 'Osu\'s Default Announce channel.', true, false, true, false, false, 'main'])
+  createChannel(['#lobby', 'Osu\'s Default Multiplayer lobby channel.', true, false, false, false, false, 'main'])
   createChannel(['#userlog', 'Osu\'s Default trash channel.', false, false, true, false, false, 'main'])
   createChannel(['#' + config.Bancho.ServerName, config.Bancho.ServerName + 'Just a channel to talk about smth.', true, false, false, false, false, 'main'])
 }

@@ -464,7 +464,7 @@ class OsuBuffer {
      * @return {OsuBuffer}
      */
     WriteOsuString(value, nullable = false) {
-        if(value.length == null && value.length === 0 && nullable)
+        if((value.length == null && nullable) || (value.length === 0 && nullable))
         {
             this.WriteByte(0);
         } else if(value.length === 0)

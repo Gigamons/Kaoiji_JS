@@ -16,6 +16,7 @@ const Channel = require('./objects/Channel');
 
 // Stream
 PacketStream.addStream('main');
+PacketStream.addStream('lobby');
 Token.deleteAlltokens();
 Channel.createDefault();
 
@@ -76,9 +77,12 @@ app.use('/', (req, res) => {
         if (TokenData) {
           let ReadStream = TokenData.output;
           let readed = ReadStream.read();
+          let readed2 = TokenData.mpoutput.read();
           if (readed == null)
             readed = new Buffer('');
-          res.write(readed);
+          if (readed2 == null)
+            readed2 = new Buffer('');
+          res.write(Buffer.concat([readed, readed2]));
           res.end();
         }
       } else {

@@ -12,7 +12,7 @@ function getStreambyName(StreamName) {
   }
 }
 
-function BroadcastToStream(StreamName, buffer = new Buffer(''), token) {
+function BroadcastToStream(StreamName, buffer = new Buffer(''), token, mp = false) {
   for (let i = 0; i < Streams.length; i++) {
     const e = Streams[i];
     if (e.name === StreamName) {
@@ -24,10 +24,10 @@ function BroadcastToStream(StreamName, buffer = new Buffer(''), token) {
           if (user.token === token) {
             continue;
           } else {
-            Token.BroadcastToToken(user.token, buffer);
+            Token.BroadcastToToken(user.token, buffer, mp);
           }
         } else {
-          Token.BroadcastToToken(user.token, buffer);
+          Token.BroadcastToToken(user.token, buffer, mp);
         }
       }
     }

@@ -21,7 +21,7 @@ function createStream(token, UserID){
     }
     const user = Token.getDatabyUserToken(token);
     PacketStream.addStream('spec_'+UserID);
-    PacketStream.addUsertoStream('spec_'+UserID, user[1]);
+    PacketStream.addUsertoStream('spec_'+UserID, user);
     Channel.createChannel([
         '#spec_'+UserID,
         'Spectator stream ID: '+UserID,

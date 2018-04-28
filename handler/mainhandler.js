@@ -2,6 +2,7 @@ const Token = require('../objects/Token');
 const Stream = require('../objects/PacketStreams');
 
 const OsuPacket = require('../main_modules/osu-packet');
+const Multiplayer = require('../objects/MultiPlayer');
 
 async function handlePackets(token, RawPacket) {
   const reader = new OsuPacket.Client.Reader(RawPacket);
@@ -50,12 +51,34 @@ async function handlePackets(token, RawPacket) {
         const StreamID = require('../objects/spectatorStream').getStreamByToken(token)[0];
         require('../objects/spectatorStream').broadcastFrame(StreamID, Packet.data);
         break;
+      case 21:
+        writer.SpectatorCantSpectate(Token.getDatabyUserToken(token).general.UserID);
+        const StreamHostID = require('../objects/spectatorStream').getStreamBySpectatorToken(token)[2].StreamHostID;
+        require('../objects/PacketStreams').BroadcastToStream('spec_' + StreamHostID, writer.toBuffer)
+        break;
+      case 25:
+        require('./public/message').sendMessageToUser(token, Packet.data.message, Packet.data.target);
+        break;
+      case 29:
+        Multiplayer.leaveLobby(token);
+        break;
       case 30:
-        // Well, i didn't even started working on MP yet XD
-        writer.resetbuffer();
-        writer.Announce('Multiplayer is not ready.');
-        writer.ChannelRevoked('#lobby');
-        Token.BroadcastToToken(token, writer.toBuffer);
+        Multiplayer.joinLobby(token);
+        break;
+      case 31:
+        Multiplayer.creatempLobby(token, Packet.data);
+        break;
+      case 32:
+        Multiplayer.joinmpLobby(token, Packet.data);
+        break;
+      case 33:
+        Multiplayer.leavempLobby(token);
+        break;
+      case 38:
+        Multiplayer.changeSlot(token, Packet.data);
+        break;
+      case 41:
+        Multiplayer.updatempLobby(token, Packet.data);
         break;
       case 63:
         // Join channel if exists.

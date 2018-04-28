@@ -95,6 +95,7 @@ const login = async (res, req, packet) => {
         latitude = Number(0);
       }
       responseToken = Token.addToken([user.UserID, user.UserName, tourney, user.Privileges, false, 24 + LoginData.timeoffset, countryId, perm, longitude, latitude])
+      await friendList(responseToken);
       await updatestats(responseToken, undefined, true);
       const u = Token.getDatabyUserToken(responseToken);
 
@@ -119,7 +120,6 @@ const login = async (res, req, packet) => {
         'Keep-Alive': 'timeout=5, max=100',
         'Content-Type': 'text/html; charset=UTF-8'
       });
-      await friendList(responseToken);
       BufferArray = Buffer.concat([writer.toBuffer, Token.getDatabyUserToken(responseToken).output.read()])
       res.write(BufferArray);
       res.end();

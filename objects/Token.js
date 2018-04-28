@@ -153,14 +153,18 @@ function genToken(userid = 0) {
     });
 };
 
-function BroadcastToToken(token, b = new Buffer('')) {
+function BroadcastToToken(token, b = new Buffer(''), mp = false) {
   for (let i = 0; i < Tokens.length; i++) {
     if (Tokens[i].token === token) {
       if (Tokens[i].general.UserID == 1) return;
-      Tokens[i].output.push(b);
+      if(mp)
+        Tokens[i].mpoutput.push(b);
+      else
+        Tokens[i].output.push(b);
     }
   }
 }
+
 
 async function BroadcastToUserID(UserID, b = new Buffer('')) {
   if (UserID == 1) return;
@@ -174,6 +178,7 @@ async function BroadcastToUserID(UserID, b = new Buffer('')) {
 function TokenOBJECT(arr) {
   const ms = new Date().getTime();
   const readstream = new stream.PassThrough;
+  const rstream = new stream.PassThrough;
   return {
     token: String(genToken(Number(arr[0]))),
     general: {
@@ -212,6 +217,7 @@ function TokenOBJECT(arr) {
     relaxing: false,
     speclock: false,
     TimeoutTimer: ms,
+    mpoutput: rstream,
     output: readstream
   }
 }
