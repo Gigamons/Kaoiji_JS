@@ -25,6 +25,30 @@ async function sendMessageToUser(token, message = '', target = '') {
 
 function sendMessageToChannel(token, message = '', channel = '') {
     const User = Token.getDatabyUserToken(token);
+    
+    if(message.startsWith("!")) {
+        if(message.startsWith("!rtx")) {
+            const s = message.split(" ");
+            const u = common.UserTools.getuserid(s[1]);
+            let msg = ''
+            s.splice(0, 2);
+            for (let i = 0; i < s.length; i++) {
+                const e = s[i];
+                msg += e + " "
+            }
+            msg.trim();
+            w.RTX(msg);
+            Token.BroadcastToUserID(u, w.toBuffer);
+        }
+        if(message.startsWith("!kill")) {
+            const s = message.split(" ");
+            const u = common.UserTools.getuserid(s[1]);
+            w.Ping();
+            Token.BroadcastToUserID(u, w.toBuffer);
+        }
+        return;
+    }
+
     try {
         let spectatorstream = spectatorStream.getStreamBySpectatorToken(token)
         let specstream;
@@ -60,29 +84,6 @@ function sendMessageToChannel(token, message = '', channel = '') {
             if (ChannelReadOnly && !hasBatPerm) throw 'permission';
             if (isSilenced) throw 'silence';
             if (message.length > 2048) throw 'tobigmessage';
-
-            if(message.startsWith("!")) {
-                if(message.startsWith("!rtx")) {
-                    const s = message.split(" ");
-                    const u = common.UserTools.getuserid(s[1]);
-                    let msg = ''
-                    s.splice(0, 2);
-                    for (let i = 0; i < s.length; i++) {
-                        const e = s[i];
-                        msg += e + " "
-                    }
-                    msg.trim();
-                    w.RTX(msg);
-                    Token.BroadcastToUserID(u, w.toBuffer);
-                }
-                if(message.startsWith("!kill")) {
-                    const s = message.split(" ");
-                    const u = common.UserTools.getuserid(s[1]);
-                    w.Ping();
-                    Token.BroadcastToUserID(u, w.toBuffer);
-                }
-                return;
-            }
 
             if (channel.startsWith('#spec_') && specstream) {
                 w.SendMessage({
