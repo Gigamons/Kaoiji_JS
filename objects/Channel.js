@@ -156,7 +156,7 @@ function createDefault() {
   createChannel(['#announce', 'Osu\'s Default Announce channel.', true, false, true, false, false, 'main'])
   createChannel(['#lobby', 'Osu\'s Default Multiplayer lobby channel.', true, false, false, false, false, 'main'])
   createChannel(['#userlog', 'Osu\'s Default trash channel.', false, false, true, false, false, 'main'])
-  createChannel(['#' + 'Just a channel to talk about smth.', true, false, false, false, false, 'main'])
+  createChannel(['#' + config.Bancho.ServerName,'Just a channel to talk about smth.', true, false, false, false, false, 'main'])
 }
 
 function deleteChannel(channel = null) {
