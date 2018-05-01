@@ -65,15 +65,15 @@ const login = async (res, req, packet) => {
       }
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.TournamentStaff)) {
         r |= 32;
+        perm |= 16;
       }
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminDeveloper)) {
-        perm |= 6;
+        perm |= 8;
+        r |= 2;
       }
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminChatMod)) {
-        perm |= 8;
-      }
-      if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.TournamentStaff)) {
         perm |= 16;
+        perm |= 6
       }
 
       let countryId = 0;
@@ -81,9 +81,11 @@ const login = async (res, req, packet) => {
       let latitude = 0;
 
       try {
-        let i = req.headers['X-Real-IP'];
-        if (i == "127.0.0.1" || i == '0.0.0.0')
-          i = '';
+        let i = req.header('X-Real-IP');
+        if (i === "127.0.0.1" || i === '0.0.0.0')
+          i = req.header('X-Forwarded-For');
+        if (i === "127.0.0.1" || i === '0.0.0.0')
+            i = '';
         let IP = Object(await IPHelper(i));
         countryId = Number(countryHelper.CountryToID(IP.country));
         longitude = Number(IP.loc.split(',')[0]);
