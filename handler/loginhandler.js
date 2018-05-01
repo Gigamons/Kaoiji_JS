@@ -59,21 +59,27 @@ const login = async (res, req, packet) => {
 
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.BAT)) {
         r |= 2;
+        perm |= 2;
       }
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.Supporter) || config.Bancho.freedirect) {
         r |= 4;
+        if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.Supporter)) {
+          perm |= 4;
+        }
       }
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.TournamentStaff)) {
         r |= 32;
-        perm |= 16;
+        perm |= 4;
       }
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminDeveloper)) {
-        perm |= 8;
-        r |= 2;
+        perm |= 6;
       }
+
       if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.AdminChatMod)) {
+        perm |= 8;
+      }
+      if (common.PrivilegeHelper.hasPrivilege(user.Privileges, common.Privileges.TournamentStaff)) {
         perm |= 16;
-        perm |= 6
       }
 
       let countryId = 0;
