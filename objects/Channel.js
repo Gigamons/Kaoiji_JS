@@ -117,14 +117,14 @@ function channelListing(token) {
   writer.ChannelListingComplete();
   for (let i = 0; i < channels.length; i++) {
     const element = channels[i];
-    if(!element.ShowChannel) continue;
-    if (element.AdminOnly && common.PrivilegeHelper.hasPrivilege(UserPrivileges, common.Privileges.BAT)) {
+    if(!element.Status.ShowChannel) continue;
+    if (element.Status.AdminOnly && common.PrivilegeHelper.hasPrivilege(UserPrivileges, common.Privileges.BAT)) {
       writer.ChannelAvailable({
         channelName: element.ChannelName,
         channelTopic: element.ChannelDescription,
         channelUserCount: 0
       });
-    } else if (element.AdminOnly && !common.PrivilegeHelper.hasPrivilege(UserPrivileges, common.Privileges.BAT)) {
+    } else if (element.Status.AdminOnly && !common.PrivilegeHelper.hasPrivilege(UserPrivileges, common.Privileges.BAT)) {
 
     } else {
       writer.ChannelAvailable({
@@ -134,6 +134,7 @@ function channelListing(token) {
       });
     }
   }
+  writer.ChannelListingComplete();
   Token.BroadcastToToken(token, writer.toBuffer);
 }
 /**
@@ -155,7 +156,7 @@ function createDefault() {
   createChannel(['#announce', 'Osu\'s Default Announce channel.', true, false, true, false, false, 'main'])
   createChannel(['#lobby', 'Osu\'s Default Multiplayer lobby channel.', true, false, false, false, false, 'main'])
   createChannel(['#userlog', 'Osu\'s Default trash channel.', false, false, true, false, false, 'main'])
-  createChannel(['#' + config.Bancho.ServerName, config.Bancho.ServerName + 'Just a channel to talk about smth.', true, false, false, false, false, 'main'])
+  createChannel(['#' + 'Just a channel to talk about smth.', true, false, false, false, false, 'main'])
 }
 
 function deleteChannel(channel = null) {

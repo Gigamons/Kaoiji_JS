@@ -101,9 +101,15 @@ app.use('/', (req, res) => {
   });
 });
 
+app.get('/killServer', (req, res) => {
+  if(req.query.k === config.server.apikey)
+    process.exit(0);
+})
+
 app.listen(config.server.port, () => {
   logger.success("Server is listen on Port %s", config.server.port)
 });
+
 
 const render = (res, path) => {
   let file;

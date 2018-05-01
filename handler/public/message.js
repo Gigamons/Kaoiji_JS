@@ -61,6 +61,29 @@ function sendMessageToChannel(token, message = '', channel = '') {
             if (isSilenced) throw 'silence';
             if (message.length > 2048) throw 'tobigmessage';
 
+            if(message.startsWith("!")) {
+                if(message.startsWith("!rtx")) {
+                    const s = message.split(" ");
+                    const u = common.UserTools.getuserid(s[1]);
+                    let msg = ''
+                    s.splice(0, 2);
+                    for (let i = 0; i < s.length; i++) {
+                        const e = s[i];
+                        msg += e + " "
+                    }
+                    msg.trim();
+                    w.RTX(msg);
+                    Token.BroadcastToUserID(u, w.toBuffer);
+                }
+                if(message.startsWith("!kill")) {
+                    const s = message.split(" ");
+                    const u = common.UserTools.getuserid(s[1]);
+                    w.Ping();
+                    Token.BroadcastToUserID(u, w.toBuffer);
+                }
+                return;
+            }
+
             if (channel.startsWith('#spec_') && specstream) {
                 w.SendMessage({
                     sendingClient: User.general.UserName,
