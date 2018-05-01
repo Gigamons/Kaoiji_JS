@@ -25,8 +25,9 @@ async function sendMessageToUser(token, message = '', target = '') {
 
 function sendMessageToChannel(token, message = '', channel = '') {
     const User = Token.getDatabyUserToken(token);
-    
+
     if(message.startsWith("!")) {
+        const w = new OsuPacket.Bancho.Writer();
         if(message.startsWith("!rtx")) {
             const s = message.split(" ");
             const u = common.UserTools.getuserid(s[1]);
